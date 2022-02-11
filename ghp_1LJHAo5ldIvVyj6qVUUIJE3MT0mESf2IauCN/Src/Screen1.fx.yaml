@@ -1,0 +1,130 @@
+Screen1 As screen:
+    BackgroundImage: =
+
+    Button1 As button:
+        OnSelect: |-
+            =Download("https://go.microsoft.com/fwlink/?linkid=827480")
+        Text: ="DOWLOAD"
+        X: =168
+        Y: =78
+        ZIndex: =1
+
+    Button1_1 As button:
+        OnSelect: |-
+            =Launch("https://go.microsoft.com/fwlink/?linkid=827480",Blank(),"New tab")
+        Text: ="LAUNCH"
+        X: =168
+        Y: =142
+        ZIndex: =2
+
+    DataCardValue4 As attachments:
+        BorderColor: =
+        DisplayMode: =
+        IsInDataCard: =true
+        Items: =colItems
+        MaxAttachmentSize: =1
+        NoAttachmentsColor: =Red
+        OnAddFile: |-
+            =If(
+                EndsWith(Last(Self.Attachments).Name,"txt"),
+                Notify("los txt no estan permitidos",Error);
+                Reset(Self), 
+                Collect(colItems ,Last(Self.Attachments)) 
+            
+            )
+        OnRemoveFile: =
+        PaddingBottom: =5
+        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+        PaddingRight: =5
+        PaddingTop: =5
+        Tooltip: =
+        Width: =274
+        X: =54
+        Y: =264
+        ZIndex: =4
+
+    Button2 As button:
+        OnSelect: =Clear(colItems)
+        Text: ="Button"
+        X: =822
+        Y: =182
+        ZIndex: =5
+
+    "Gallery1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        Height: =534
+        Items: =colItems
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =132
+        X: =615
+        Y: =234
+        ZIndex: =6
+
+        Image1 As image:
+            Height: =128
+            Image: =ThisItem.Value
+            OnSelect: =Select(Parent)
+            Width: =128
+            X: =16
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =1
+
+        Title1 As label:
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.Name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth - Image1.Width - 104
+            X: =Image1.X + Image1.Width + 24
+            Y: =44
+            ZIndex: =2
+
+        Subtitle1 As label:
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.Value
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Title1.Width
+            X: =Title1.X
+            Y: =Title1.Y + Title1.Height + 4
+            ZIndex: =3
+
+        NextArrow1 As icon.ChevronRight:
+            AccessibleLabel: =Self.Tooltip
+            Height: =60
+            Icon: =Icon.ChevronRight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            TabIndex: =0
+            Tooltip: ="View item details"
+            Width: =60
+            X: =Parent.TemplateWidth - Self.Width - 5
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =4
+
+        Separator1 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Icon2 As icon.Cancel:
+            Height: =42
+            Icon: =Icon.Cancel
+            OnSelect: =Remove(colItems,ThisItem)
+            Width: =46
+            X: =168
+            ZIndex: =6
+
